@@ -117,7 +117,7 @@ function updateScore() {
 }
 
 function aiMove() {
-  const makeRandomMove = Math.random() < 0.3; // 30% Wahrscheinlichkeit, einen zufälligen Zug zu machen
+  const makeRandomMove = Math.random() < 0.5; // 50% Wahrscheinlichkeit, einen zufälligen Zug zu machen
   let move;
   if (makeRandomMove) {
     const emptyCells = Array.from(cellElements).filter(cell => !cell.classList.contains(X_CLASS) && !cell.classList.contains(O_CLASS));

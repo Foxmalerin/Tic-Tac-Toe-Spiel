@@ -125,14 +125,14 @@ input[type="checkbox"] {
 }
 
 /* Media Queries für kleinere Bildschirme */
-@media (max-width: 600px) {
+@media (max-width: 363px) {
   #score-board{
-    top: 30px;
-    bottom: 690px;
-    right: 250px;
+    top: 10px;
+    bottom: 590px;
+    right: 230px;
     width: 30%;
     padding: 5px;
-    font-size: 1em;
+    font-size: 0.8em;
     border-radius: 15px;
   }
 

@@ -127,8 +127,8 @@ input[type="checkbox"] {
 /* Media Queries für kleinere Bildschirme */
 @media (max-width: 363px) {
   #score-board{
-    top: 10px;
-    bottom: 590px;
+    top: 5px;
+    bottom: 567px;
     right: 230px;
     width: 30%;
     padding: 5px;

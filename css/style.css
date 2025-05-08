@@ -1,0 +1,160 @@
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(45deg, #ff0000, #00e8fd, #1100ff, #ff0000, #00ffff, #ffff00);
+  background-size: 600% 600%;
+  animation: gradient 15s ease infinite;
+}
+#container {
+  display: flex;
+  align-items: flex-start;
+}
+
+#game {
+  margin-right: 20px;
+}
+#controls {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  margin: 5px;
+  cursor: pointer;
+  border: 5px solid #333;
+  text-transform: uppercase;
+  font-weight: bold; /* Macht die Listenelemente fett */
+}
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6em;
+  border: 5px solid #333;
+  cursor: pointer;
+}
+
+label {
+  font-weight: bold;
+  background-color: #ff0000;
+  display: block;
+  margin-bottom: 0px;
+  border: 5px solid #000000;
+  font-size: 2em;
+  width: 105%;
+  transition: background-color 0.3s;
+}
+
+#ai-toggle-container {
+  text-align: center;
+  margin-top: 20px;
+  display: flex; /* Flexbox-Layout verwenden */
+  justify-content: center; /* Elemente horizontal zentrieren */
+  align-items: center; /* Elemente vertikal zentrieren */
+  gap: 10px; /* Abstand zwischen Checkbox und Label */
+}
+
+/* Stile für den kleinen Knopf (Checkbox) */
+input[type="checkbox"] {
+  width: 40px; /* Breite des Kästchens */
+  height: 60px; /* Höhe des Kästchens */
+  margin-right: 10px; /* Abstand zum Label */
+  vertical-align: middle; /* Vertikale Ausrichtung */
+}
+.invisible-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cell.x::before {
+  content: 'X';
+  color: black;
+}
+
+.cell.o::before {
+  content: 'O';
+  color: black;
+}
+.cell.winning {
+  background-color: #37ff00;
+  color: #fffeff;
+}
+#score-board {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 45px;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 3);
+  font-size: 2em;
+  text-transform: capitalize;
+  font-weight: bold; /* Macht die Listenelemente fett */
+}
+
+/* Media Queries für kleinere Bildschirme */
+@media (max-width: 600px) {
+  #score-board{
+    top: 30px;
+    bottom: 690px;
+    right: 250px;
+    width: 30%;
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 15px;
+  }
+
+  label {
+    font-size: 1.5em;
+  }
+
+  input[type="checkbox"] {
+    width: 30px;
+    height: 50px;
+  }
+}
+
+#score-board h2 {
+  margin-top: 0;
+}
+
+#score-board ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#score-board li {
+  margin-bottom: 10px;
+}

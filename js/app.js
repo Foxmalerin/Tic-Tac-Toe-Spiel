@@ -24,7 +24,7 @@ const xWinsElement = document.getElementById('x-wins');
 const oWinsElement = document.getElementById('o-wins');
 
 let oTurn;
-let oscore = 0, xscore = 0;
+let oscore = 0, xscore = 0; drawScore = 0;
 let playAgainstAI = false;
 startGame();
 
@@ -52,6 +52,7 @@ function startGame() {
 function resetGame() {
   xscore = 0;
   oscore = 0;
+  drawScore = 0;
   updateScore();
   startGame();
 }
@@ -70,6 +71,8 @@ function handleClick(e) {
     updateScore();
     setTimeout(() => alert(`${currentClass.toUpperCase()} hat Gewonnen!`), 100);
   } else if (isDraw()) {
+    drawScore += 1; // Erhöhe die Anzahl der Unentschieden
+    updateScore();  // Aktualisiere die Siegesliste
     setTimeout(() => alert('Unentschieden! Niemand hat Gewonnen!'), 100);
   } else {
     swapTurns();
@@ -114,10 +117,11 @@ function isDraw() {
 function updateScore() {
   xWinsElement.textContent = xscore;
   oWinsElement.textContent = oscore;
+  document.getElementById('draws').textContent = drawScore;
 }
 
 function aiMove() {
-  const makeRandomMove = Math.random() < 0.5; // 50% Wahrscheinlichkeit, einen zufälligen Zug zu machen
+  const makeRandomMove = Math.random() < 0.6; // 60% Wahrscheinlichkeit, einen zufälligen Zug zu machen
   let move;
   if (makeRandomMove) {
     const emptyCells = Array.from(cellElements).filter(cell => !cell.classList.contains(X_CLASS) && !cell.classList.contains(O_CLASS));
@@ -133,6 +137,8 @@ function aiMove() {
     updateScore();
     setTimeout(() => alert('O hat Gewonnen!'), 100);
   } else if (isDraw()) {
+    drawScore += 1; // Erhöhe die Anzahl der Unentschieden
+    updateScore();  // Aktualisiere die Siegesliste
     setTimeout(() => alert('Unentschieden! Niemand hat Gewonnen!'), 100);
   } else {
     swapTurns();
@@ -241,4 +247,5 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+// sounds, confetti
 

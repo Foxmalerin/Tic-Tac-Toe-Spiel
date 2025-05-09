@@ -58,22 +58,39 @@ function resetGame() {
 }
 
 function handleClick(e) {
+  console.log("handleClick called");
   const cell = e.target;
   const currentClass = oTurn ? O_CLASS : X_CLASS;
   placeMark(cell, currentClass);
   if (checkWin(currentClass)) {
+    console.log("checkWin passed for", currentClass);
     highlightWinningCombination(currentClass);
     if (currentClass === X_CLASS) {
+      console.log("X wins");
       xscore += 1;
+      const xWinSound = document.getElementById('x-win-sound');
+      if (xWinSound) {
+        xWinSound.play().catch(error => console.error("Error playing x-win-sound:", error)); // Gewinner-Sound für X
+        startConfetti(); // Starte Konfetti, wenn gegen die KI gespielt wird und X gewinnt
+      } else {
+        console.error("x-win-sound element not found");
+      }
     } else {
+      console.log("O wins");
       oscore += 1;
+      const oWinSound = document.getElementById('x-win-sound');
+      if (oWinSound) {
+        oWinSound.play().catch(error => console.error("Error playing o-win-sound:", error)); // Gewinner-Sound für O
+        startConfetti(); // Starte Konfetti, wenn gegen die KI gespielt wird und X gewinnt
+      } else {
+        console.error("o-win-sound element not found");
+      }
     }
     updateScore();
-    setTimeout(() => alert(`${currentClass.toUpperCase()} hat Gewonnen!`), 100);
   } else if (isDraw()) {
+    console.log("It's a draw");
     drawScore += 1; // Erhöhe die Anzahl der Unentschieden
     updateScore();  // Aktualisiere die Siegesliste
-    setTimeout(() => alert('Unentschieden! Niemand hat Gewonnen!'), 100);
   } else {
     swapTurns();
     if (oTurn && playAgainstAI) {
@@ -82,6 +99,27 @@ function handleClick(e) {
   }
 }
 
+function startConfetti() {
+  const count = 200,
+    defaults = {
+      origin: { y: 0.7 },
+    };
+
+  function fire(particleRatio, opts) {
+    confetti(Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio),
+    }));
+  }
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+
+  fire(0.2, {spread: 60,});
+  fire(0.35, {spread: 100, decay: 0.91, scalar: 0.8,});
+  fire(0.1, {spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2,});
+  fire(0.1, {spread: 120, startVelocity: 45,});
+}
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
 }
@@ -134,12 +172,16 @@ function aiMove() {
   if (checkWin(O_CLASS)) {
     highlightWinningCombination(O_CLASS);
     oscore += 1;
+    const oWinSound = document.getElementById('o-win-sound');
+    if (oWinSound) {
+      oWinSound.play().catch(error => console.error("Error playing o-win-sound:", error)); // Verlierer-Sound für O
+    } else {
+      console.error("o-win-sound element not found");
+    }
     updateScore();
-    setTimeout(() => alert('O hat Gewonnen!'), 100);
   } else if (isDraw()) {
     drawScore += 1; // Erhöhe die Anzahl der Unentschieden
     updateScore();  // Aktualisiere die Siegesliste
-    setTimeout(() => alert('Unentschieden! Niemand hat Gewonnen!'), 100);
   } else {
     swapTurns();
   }
@@ -247,5 +289,4 @@ self.addEventListener('fetch', event => {
       })
   );
 });
-// sounds, confetti
 

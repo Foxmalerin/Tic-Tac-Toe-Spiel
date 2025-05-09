@@ -9,6 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
   <link rel="manifest" href="manifest.json">
+  <title>Konfetti-Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 <body>
 <div id="score-board">
   <h2>Siege</h2>
@@ -38,8 +40,14 @@
    <input type="checkbox" id="ai-toggle" onchange="toggleAI()">
   </div>
 </div>
+
+<!-- Audio Elements for Sounds -->
+<audio id="x-win-sound" src="/js/Sounds/Win.mp3"></audio>
+<audio id="o-win-sound" src="/js/Sounds/Oops.mp3"></audio>
+
 <script src="js/app.js"></script>
-<script>// ein teil damit es keine internetverbindung braucht
+<script>
+  // ein teil damit es keine internetverbindung braucht
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
